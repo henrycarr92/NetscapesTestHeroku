@@ -1,0 +1,68 @@
+<!--<html>
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript">
+    google.load('search', '1');
+    google.setOnLoadCallback(OnLoad);
+    var search;
+
+    //i suggest instead of this to make keywords list so first to pick random keyword than to do search and pick random image
+    var keyword = 'mountains';
+
+    function OnLoad()
+    {
+        search = new google.search.ImageSearch();
+
+        search.setSearchCompleteCallback(this, searchComplete, null);
+
+        search.execute(keyword);
+    }
+
+    function searchComplete()
+    {
+        if (search.results && search.results.length > 0)
+        {
+            var rnd = Math.floor(Math.random() * search.results.length);
+
+            //you will probably use jQuery and something like: $('body').css('background-image', "url('" + search.results[rnd]['url'] + "')");
+            document.body.style.backgroundImage = "url('" + search.results[rnd]['url'] + "')";
+        }
+    }
+    </script>
+</head>
+<body>
+
+</body>
+</html>-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Google Search API Sample</title>
+    <script src="https://www.google.com/jsapi"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function Search(){
+            document.getElementById("gsc-i-id1").value = document.getElementById("Sample").value;
+            $(document.getElementsByClassName("gsc-search-button")[0]).click();
+        }
+    </script>
+ 
+  </head>
+  <body style="font-family: Arial;border: 0 none;">
+      <input type="text" id="Sample"/><input type="button" onclick="Search()" value="Search"/>
+      <script>
+          (function() {
+            var cx = '009861144407260775380:em6ivcrqg3i';
+            var gcse = document.createElement('script');
+            gcse.type = 'text/javascript';
+            gcse.async = true;
+            gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gcse, s);
+          })();
+    </script>
+    <gcse:search></gcse:search>
+  </body>
+</html>

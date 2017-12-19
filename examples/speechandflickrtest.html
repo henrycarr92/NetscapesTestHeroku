@@ -1,0 +1,55 @@
+<html>
+  <head>
+
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/p5.min.js"></script>
+	       <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/addons/p5.dom.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	       <script src="../lib/p5.speech.js"></script>
+
+           <script>
+
+           var myRec = new p5.SpeechRec(); // new P5.SpeechRec object
+           myRec.continuous = true; // do continuous recognition
+           myRec.continuous = true; // do continuous recognition
+
+
+          function setup()
+          {
+            // graphics stuff:
+
+                    myRec.onResult = showResult; //USING API
+                    myRec.start();
+        }
+
+        function showResult()
+        {
+                  if(myRec.resultValue==true) { //if the value is spoken in, execute this below
+                    text(myRec.resultString , 300, 200); //display icon in the top left of the screen
+                      console.log(myRec.resultString); //log the icon in the console
+
+          var keyword = myRec;
+
+          $(document).ready(function(){
+
+              $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+              {
+                  keyword: "myRec.ResultValue",
+                  tags: myRec.resultString,
+                  format: "json"
+              },
+              function(data) {
+                  var rnd = Math.floor(Math.random() * data.items.length);
+
+                  var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
+
+          $('body').css('background-image' , "url('" + image_src + "')");
+
+              });
+          });
+        }};
+</script>
+
+    </head>
+  </html>

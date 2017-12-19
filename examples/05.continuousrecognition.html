@@ -1,0 +1,61 @@
+<html>
+<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/p5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/addons/p5.dom.js"></script>
+	<script src="../lib/p5.speech.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script>
+
+	var myRec = new p5.SpeechRec(); // new P5.SpeechRec object
+	myRec.continuous = true; // do continuous recognition
+	// myRec.interimResults = true; // allow partial recognition (faster, less accurate)
+
+
+
+	function setup()
+	{
+		// graphics stuff:
+		createCanvas(800, 600);
+		background(255, 255, 255);
+		fill(0, 0, 0, 255);
+
+		myRec.onResult = ShowWord; // recognition callback
+		myRec.start(); // start engine
+
+
+	}
+
+
+
+	function parseResult()
+	{
+		// recognition system will often append words into phrases.
+		// so hack here is to only use the last word:
+		var mostrecentword = myRec.resultString.split(' ').pop();
+
+
+	}
+
+	function ShowWord()
+	{
+		if(myRec.resultValue==true) {
+			background(255, 255, 255); //need to have a background otherwise will just overwrite initial text
+			text(myRec.resultString, 200, 200);
+			textSize(50);
+			console.log(myRec.resultString);
+		}
+	}
+
+	function addICON() {
+			var FinalWord = mostrecentword + " icon";
+			console.log("FinalWord");
+		}
+
+//ned to add a stop word filter so that words cant be said into it that shouldnt be
+//easy with a txt. file
+
+</script>
+</head>
+<body>
+</body>
+</html>

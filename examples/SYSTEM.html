@@ -1,0 +1,61 @@
+<html>
+  <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://afeld.github.io/emoji-css/emoji.css">
+        <link rel='stylesheet' href='https://unpkg.com/emoji.css/dist/emoji.min.css'>
+        <link rel="stylesheet" href="../css/style.css">
+
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/p5.min.js"></script>
+	       <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/addons/p5.dom.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	       <script src="../lib/p5.speech.js"></script>
+
+           <script>
+
+           var myRec = new p5.SpeechRec(); // new P5.SpeechRec object
+           myRec.continuous = true; // do continuous recognition
+
+
+          function setup()
+          {
+            // graphics stuff:
+                    createCanvas(1000, 500);
+                    background(255, 255, 255);
+                    fill(0, 0, 0, 255);
+
+            // instructions:
+                    textSize(75);
+                    textAlign(CENTER);
+                    text("Speak", 200, 300);
+                    myRec.onResult = showResult; //USING API
+                    myRec.start();
+        }
+
+
+        function showResult()
+        {
+                  if(myRec.resultValue==true) { //if the value is spoken in, execute this below
+                    background(255,255,255);
+                    text(myRec.resultString , 300, 200); //display icon in the top left of the screen
+                      console.log(myRec.resultString); //log the icon in the console
+                        document.getElementById("icon").className = "iconimage fa fa-" + myRec.resultString.toLowerCase(); //Font Awesome
+                        document.getElementById("icon").className = "iconimage em em-" + myRec.resultString.toLowerCase(); //Emoji Github
+                        document.getElementById("icon").className = "iconimage ec ec-" + myRec.resultString.toLowerCase(); //Emoji Standard
+                          $.ajax({
+                            url:"../images/" + myRec.resultString.toLowerCase() + ".png", //if not, run this ajaz code to access our image folder
+                            type:'HEAD', //ajax post method to console
+                            success: function() //boolean in ajax
+                            {
+                            document.getElementById("icon").style.backgroundImage = "url(../images/" + myRec.resultString.toLowerCase() + ".png";
+                            console.log("icon");
+                    }
+                });
+            }
+        }
+          </script>
+        </head>
+<body>
+    <a id="icon"></a> <!--display-->
+</body>
+    <style>
+</html>
